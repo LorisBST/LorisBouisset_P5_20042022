@@ -3,8 +3,8 @@ fetch("http://localhost:3000/api/products")
 return reponse.json();
 })
 .then(function(reponseFormate){
+// affichage des produits via le DOM
 let affichage = "";
-// 
 for(var produit of reponseFormate){
     affichage += `<a href="./product.html?id=${produit._id}">
     <article>
@@ -15,9 +15,10 @@ for(var produit of reponseFormate){
    </a>\n`; 
 }
 document.getElementById("items").innerHTML = affichage;
-
 })
 
+
+// En cas de serveur éteint
 .catch(function (erreur){
     alert("Serveur inaccessible.");
 } )
