@@ -38,7 +38,7 @@ fetch(`http://localhost:3000/api/products/${RequeteId}`)
                 alert("Veuillez choisir une couleur et une quantité.");
                 return
             }
-            let produitPanier = { id: data._id, color: color, quantity: Number(quantity), price: data.price }
+            let produitPanier = {name: data.name, imageUrl : data.imageUrl, id: data._id, color: color, quantity: Number(quantity), price: data.price }
             // récupère l'objet panier 
             let objetPanier = JSON.parse(localStorage.getItem("panier"));
             if (objetPanier === null) {
