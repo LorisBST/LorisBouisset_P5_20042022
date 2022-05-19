@@ -2,6 +2,7 @@ const url = new URL(window.location.href);
 //Récupération de l'id produit via l'API.
 const RequeteId = url.searchParams.get("id");
 
+
 // Fetch en fonction de l'ID produit 
 fetch(`http://localhost:3000/api/products/${RequeteId}`)
     .then(function (reponse) {
@@ -33,34 +34,32 @@ fetch(`http://localhost:3000/api/products/${RequeteId}`)
         bouton.addEventListener("click", (e) => {
             const color = document.querySelector("#colors").value
             const quantity = document.querySelector("#quantity").value
-            // si aucune quantité ou aucune couleur n'est choisie / aucune des deux => retourne un message d'erreur. 
-            if (color == null || color === "" || quantity == null || quantity == 0) {
-                alert("Veuillez choisir une couleur et une quantité.");
+            // si aucune quantité ou aucune couleur n'est choisie / aucune des deux / quantité supérieure à 100 => retourne un message d'erreur. 
+            if (color == null || color === "" || quantity == null || quantity == 0 || quantity > 100) {
+                alert("Veuillez choisir une couleur et une quantité entre 1 et 100.");
                 return
             }
-            let produitPanier = {name: data.name, imageUrl : data.imageUrl, id: data._id, color: color, quantity: Number(quantity), price: data.price }
-            // récupère l'objet panier 
+            //  produitPanier va contenir les informations du ou des produits
+            let produitPanier = { name: data.name, imageUrl: data.imageUrl, id: data._id, color: color, quantity: Number(quantity), price: data.price }
+            // récupère l'objet panier afin de stocket les informations dans le local storage
             let objetPanier = JSON.parse(localStorage.getItem("panier"));
-            if (objetPanier === null) {
-                objetPanier = []
+            if (objetPanier === null) { // si objetPanier est vide 
+                objetPanier = [] // => crée un tableau vide 
             } else {
                 let panierFiltre = objetPanier.filter((produit) => produit.id === data._id && produit.color === color)
+                //  Si panier n'est pas vide, la fonction va filtrer les informations produits afin de voir s'il n'y a pas de doublons
                 if (panierFiltre.length !== 0) {
                     objetPanier = objetPanier.filter((produit) => !(produit.id === data._id && produit.color === color))
                     produitPanier = panierFiltre[0]
-                    produitPanier.quantity += Number(quantity)
+                    produitPanier.quantity += Number(quantity) // Permet d'additionner la quantité que l'on choisit a la quantité qui était déjà présente dans le panier
                 }
-            }
-            objetPanier.push(produitPanier)
-            // stocke la commande sous forme d'array dans le local storage avec une clé différente en fonction de la couleur/modèle du canapé 
+            }            
+            objetPanier.push(produitPanier) // ajoute l'objet au panier
+            // stocke la commande dans un tableau dans le local storage en fonction de la couleur/modèle du canapé (nécessite un stringify pour être lu)
             localStorage.setItem("panier", JSON.stringify(objetPanier));
         })
     });
 
-
-
-
-    // price: quantity * data.price
 
 
 

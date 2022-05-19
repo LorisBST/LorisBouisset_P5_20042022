@@ -28,7 +28,7 @@ for (var produit of objetPanier) {
 </div>
 </article>`;
 }
-document.getElementById("cart__items").innerHTML = affichage;
 
+document.getElementById("cart__items").innerHTML = affichage;
 document.getElementById("totalQuantity").innerHTML = quantiteTotale
 document.getElementById("totalPrice").innerHTML = prixTotal
