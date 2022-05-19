@@ -32,3 +32,11 @@ for (var produit of objetPanier) {
 document.getElementById("cart__items").innerHTML = affichage;
 document.getElementById("totalQuantity").innerHTML = quantiteTotale
 document.getElementById("totalPrice").innerHTML = prixTotal
+
+
+// Mise à jour du panier en temps réel
+// input.addEventListener("input", () => MaJPrixQuantite(produit.id))
+console.log$
+// function MaJPrixQuantite() {
+  
+// }
