@@ -35,8 +35,18 @@ document.getElementById("totalPrice").innerHTML = prixTotal
 
 
 // Mise à jour du panier en temps réel
-// input.addEventListener("input", () => MaJPrixQuantite(produit.id))
-console.log$
-// function MaJPrixQuantite() {
-  
-// }
+const champInput = document.querySelectorAll(".itemQuantity")
+champInput.forEach(input => champInput.value)
+console.log(champInput)
+// const quantiteInput = document.querySelector(".itemQuantity").value;
+// champInput.forEach(() => {
+//   document.querySelector(".itemQuantity").value;
+// })
+// let quantiteInput = document.querySelector('.itemQuantity').value // 
+
+
+champInput.addEventListener("change", (e) => {
+  champInput
+  console.log("test")
+
+})
