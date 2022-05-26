@@ -10,8 +10,7 @@ fetch(`http://localhost:3000/api/products/${RequeteId}`)
     })
     // Ajout des informations des pages individuelles de canapés de façon automatisé via l'api.
     .then(function (data) {
-        console.log(data)
-        function ProduitIndiv() {
+        function produitIndiv() {
             const image = document.querySelector(".item__img").innerHTML = `<img  id="image" src="${data.imageUrl}" alt="${data.altTxt}">`;
             const titre = document.getElementById("title").innerHTML = `<h1 id="title">${data.name}</h1>`;
             const prix = document.getElementById("price").innerHTML = `<span id="price">${data.price}</span>`;
@@ -25,7 +24,7 @@ fetch(`http://localhost:3000/api/products/${RequeteId}`)
             }
             Couleurs();
         }
-        ProduitIndiv();
+        produitIndiv();
 
         // PARTIE PANIER 
         // On sélectionne l'id du bouton
@@ -40,7 +39,7 @@ fetch(`http://localhost:3000/api/products/${RequeteId}`)
                 return
             }
             //  produitPanier va contenir les informations du ou des produits
-            let produitPanier = { name: data.name, imageUrl: data.imageUrl, id: data._id, color: color, quantity: Number(quantity), price: data.price }
+            let produitPanier = { name: data.name, imageUrl: data.imageUrl, id: data._id, color: color, quantity: Number(quantity)}
             // récupère l'objet panier afin de stocket les informations dans le local storage
             let objetPanier = JSON.parse(localStorage.getItem("panier"));
             if (objetPanier === null) { // si objetPanier est vide 
