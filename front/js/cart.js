@@ -1,16 +1,19 @@
+// on récupère le local storage
 let objetPanier = JSON.parse(localStorage.getItem("panier"));
 let affichage = "";
 let quantiteTotale = 0
 let prixTotal = 0
 
-
+// on récupère les informations de l'API
 for (const produit of objetPanier) {
+    //Fetch en fonction de l'id du produit
     fetch(`http://localhost:3000/api/products/${produit.id}`)
         .then(function (canap) {
             return canap.json();
         })
         .then(function (data) {
             function exec() {
+                //differents affichages de la page
                 quantiteTotale += produit.quantity;
                 prixTotal += data.price * produit.quantity;
                 affichage += `<article class="cart__item" data-id="${produit.id}" data-color="${produit.color}">
@@ -35,6 +38,22 @@ for (const produit of objetPanier) {
                     </div>
                     </article>`;
 
+                // suppression d'un produit du panier
+                function supprimerProduit() {
+                    const boutonSupprimer = document.querySelectorAll(".deleteItem");
+                    for (let i = 0; i < boutonSupprimer.length; i++) {
+                        boutonSupprimer[i].addEventListener("click", (event) => {
+                            objetPanier.splice(i, 1);
+                            localStorage.setItem("panier", JSON.stringify(objetPanier));
+                            console.log(localStorage.setItem("panier", JSON.stringify(objetPanier)))
+                            alert("Le produit a été supprimé du panier");
+                            location.reload();
+                        });
+                    }
+                }
+
+
+                // on incrémente l'affichage
                 document.getElementById("cart__items").innerHTML = affichage;
                 document.getElementById("totalQuantity").innerHTML = quantiteTotale;
                 document.getElementById("totalPrice").innerHTML = prixTotal;
@@ -43,6 +62,7 @@ for (const produit of objetPanier) {
                 const champsInput = document.querySelectorAll(".itemQuantity");
                 for (let input of champsInput) {
                     input.addEventListener("change", (e) => {
+                        // si le panier est inférieur a 1 ou supérieur a 100, retourne une erreur
                         if (e.target.value < 1 || e.target.value > 100) {
                             alert("Quantité invalide");
                             return
@@ -60,7 +80,11 @@ for (const produit of objetPanier) {
                         }
                     })
                 }
+                supprimerProduit();
             }
+
             exec();
         })
+
 }
+
