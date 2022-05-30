@@ -31,6 +31,11 @@ fetch("http://localhost:3000/api/products")
 
 
 
+
+
+
+
+
 //  for(var i = 0; i < reponseFormate.length; i++) {
 //      console.log(reponseFormate[i]);
 //  }
