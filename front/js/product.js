@@ -1,6 +1,6 @@
-const url = new URL(window.location.href);
+const lien = new URL(window.location.href);
 //Récupération de l'id produit via l'API.
-const RequeteId = url.searchParams.get("id");
+const RequeteId = lien.searchParams.get("id");
 
 
 // Fetch en fonction de l'ID produit 
