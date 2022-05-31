@@ -257,10 +257,7 @@ function validationCommande () {
             fetch("http://localhost:3000/api/products/order", post) // on fetch l'endroit ou l'on va envoyer les données, celles ci seront envoyés dans un array vide situé dans l'api
                 .then(response => response.json())
                 .then(data => {
-                    // soutenance => numéro de commande en string
-                    // localStorage.clear();
-                    //
-                    localStorage.setItem("orderId", data.orderId); // on envoie les données de la commande dans le localstorage
+                    localStorage.clear(); // les données du local storage sont supprimées
                     document.location.href = "./confirmation.html?id=" + data.orderId; // l'utilisateur est envoyé sur la page confirmation
                 })
                 .catch(erreur => alert("Une erreur est survenue"));
